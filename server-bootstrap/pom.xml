@@ -6,19 +6,27 @@
     <artifactId>live-war-parent</artifactId>
     <version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>live-war-webapp</artifactId>
-  <packaging>war</packaging>
+  <artifactId>server-bootstrap</artifactId>
+  <version>9.3.2.v20150730</version>
+  <packaging>jar</packaging>
+  <name>Jetty Server Bootstrap for Server UberJar</name>
+  <description>Simple Bootstrap for the Server UberJar (when packaged in a WAR)</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-      <scope>provided</scope>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>server-uberjar</artifactId>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
   </build>
 </project>

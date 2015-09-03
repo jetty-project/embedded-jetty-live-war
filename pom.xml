@@ -7,10 +7,10 @@
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jetty-version>9.3.2.v20150730</jetty-version>
   </properties>
   <modules>
     <module>webapp</module>
+    <module>server-uberjar</module>
     <module>live-war-repackager</module>
   </modules>
   <build>
