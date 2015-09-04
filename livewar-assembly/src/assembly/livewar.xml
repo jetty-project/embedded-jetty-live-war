@@ -11,14 +11,16 @@
       <outputDirectory>/WEB-INF/jetty-server</outputDirectory>
       <unpack>true</unpack>
       <includes>
-        <include>*:server-uberjar</include>
+        <include>${project.groupId}:livewar-server-uberjar</include>
       </includes>
+      <useTransitiveDependencies>false</useTransitiveDependencies>
     </dependencySet>
     <dependencySet>
       <outputDirectory>/</outputDirectory>
       <unpack>true</unpack>
       <includes>
-        <include>${project.groupId}:live-war-webapp</include>
+        <include>${project.groupId}:livewar-thewebapp</include>
+        <include>${project.groupId}:livewar-server-bootstrap</include>
       </includes>
     </dependencySet>
   </dependencySets>

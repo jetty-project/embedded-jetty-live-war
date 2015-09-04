@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: jetty.boot.Main
-Implementation-Version: @jetty.version@
-Implementation-Vendor-Id: org.eclipse.jetty
-Implementation-Vendor: Jetty Server
-Specification-Version: @project.version@

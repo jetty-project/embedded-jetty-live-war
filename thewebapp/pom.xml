@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.jetty.demo.livewar</groupId>
-    <artifactId>live-war-parent</artifactId>
+    <artifactId>livewar-parent</artifactId>
     <version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>live-war-webapp</artifactId>
+  <artifactId>livewar-thewebapp</artifactId>
   <packaging>war</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

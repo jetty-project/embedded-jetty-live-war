@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.jetty.demo.livewar</groupId>
-    <artifactId>live-war-parent</artifactId>
+    <artifactId>livewar-parent</artifactId>
     <version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>live-war-repackager</artifactId>
+  <artifactId>livewar-assembly</artifactId>
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,13 +15,18 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>live-war-webapp</artifactId>
+      <artifactId>livewar-thewebapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>server-uberjar</artifactId>
+      <artifactId>livewar-server-uberjar</artifactId>
+      <version>${jetty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>livewar-server-bootstrap</artifactId>
       <version>${jetty.version}</version>
     </dependency>
   </dependencies>
@@ -35,11 +40,36 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.10</version>
+        <executions>
+          <execution>
+            <id>use-bootstrap-manifest</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>livewar-server-bootstrap</artifactId>
+                  <version>${jetty.version}</version>
+                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <includes>META-INF/MANIFEST.MF</includes>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.5.5</version>
         <executions>
           <execution>
-            <id>build-live-war</id>
+            <id>build-livewar</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -47,10 +77,10 @@
             <configuration>
               <appendAssemblyId>false</appendAssemblyId>
               <descriptors>
-                <descriptor>src/assembly/live-war.xml</descriptor>
+                <descriptor>src/assembly/livewar.xml</descriptor>
               </descriptors>
               <archive>
-                <manifestFile>META-INF/MANIFEST.MF</manifestFile>
+                <manifestFile>${project.build.directory}/bootstrap/META-INF/MANIFEST.MF</manifestFile>
               </archive>
             </configuration>
           </execution>
