@@ -6,10 +6,9 @@
     <artifactId>livewar-parent</artifactId>
     <version>1-SNAPSHOT</version>
   </parent>
-  <artifactId>livewar-server-uberjar</artifactId>
+  <artifactId>livewar-theserver</artifactId>
   <version>9.3.2.v20150730</version>
   <packaging>jar</packaging>
-  <name>Jetty Server Classes UberJar</name>
   <description>Create's a UberJar consisting of all classes needed to start Jetty</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

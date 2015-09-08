@@ -10,6 +10,7 @@
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <serverManifestDirectory>${project.build.directory}/servermanifest</serverManifestDirectory>
     <jetty.version>9.3.2.v20150730</jetty.version>
   </properties>
   <dependencies>
@@ -21,12 +22,12 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>livewar-server-uberjar</artifactId>
+      <artifactId>livewar-server-bootstrap</artifactId>
       <version>${jetty.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>livewar-server-bootstrap</artifactId>
+      <artifactId>livewar-theserver</artifactId>
       <version>${jetty.version}</version>
     </dependency>
   </dependencies>
@@ -44,7 +45,7 @@
         <version>2.10</version>
         <executions>
           <execution>
-            <id>use-bootstrap-manifest</id>
+            <id>use-server-manifest</id>
             <phase>prepare-package</phase>
             <goals>
               <goal>unpack</goal>
@@ -55,7 +56,7 @@
                   <groupId>${project.groupId}</groupId>
                   <artifactId>livewar-server-bootstrap</artifactId>
                   <version>${jetty.version}</version>
-                  <outputDirectory>${project.build.directory}/bootstrap</outputDirectory>
+                  <outputDirectory>${serverManifestDirectory}</outputDirectory>
                   <includes>META-INF/MANIFEST.MF</includes>
                 </artifactItem>
               </artifactItems>
@@ -80,7 +81,7 @@
                 <descriptor>src/assembly/livewar.xml</descriptor>
               </descriptors>
               <archive>
-                <manifestFile>${project.build.directory}/bootstrap/META-INF/MANIFEST.MF</manifestFile>
+                <manifestFile>${serverManifestDirectory}/META-INF/MANIFEST.MF</manifestFile>
               </archive>
             </configuration>
           </execution>

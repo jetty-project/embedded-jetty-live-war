@@ -10,7 +10,7 @@
   </properties>
   <modules>
     <module>thewebapp</module>
-    <module>server-uberjar</module>
+    <module>theserver</module>
     <module>server-bootstrap</module>
     <module>livewar-assembly</module>
   </modules>

@@ -1,25 +1,156 @@
+//
+//  ========================================================================
+//  Copyright (c) 1995-2015 Mort Bay Consulting Pty. Ltd.
+//  ------------------------------------------------------------------------
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  and Apache License v2.0 which accompanies this distribution.
+//
+//      The Eclipse Public License is available at
+//      http://www.eclipse.org/legal/epl-v10.html
+//
+//      The Apache License v2.0 is available at
+//      http://www.opensource.org/licenses/apache2.0.php
+//
+//  You may elect to redistribute this code under either of these licenses.
+//  ========================================================================
+//
+
 package jetty.bootstrap;
 
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLClassLoader;
+import java.util.jar.JarFile;
+import java.util.zip.ZipEntry;
 
-public class LiveWarClassLoader extends URLClassLoader
+public class LiveWarClassLoader extends ClassLoader implements Closeable
 {
-    public static LiveWarClassLoader create() throws FileNotFoundException
+    private static final String ID = LiveWarClassLoader.class.getSimpleName();
+    private static final boolean DEBUG = Boolean.getBoolean("jetty.bootstrap.debug");
+    private static final String CLASSES_BASE = "WEB-INF/jetty-server/";
+    private final URI warFileUri;
+    private JarFile warFile;
+
+    public LiveWarClassLoader(URL warFileUrl) throws URISyntaxException, IOException
     {
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        String resourceLocation = "WEB-INF/jetty-server/org/eclipse/jetty/server/Server.class";
-        URL url = cl.getResource(resourceLocation);
-        if (url == null)
-        {
-            throw new FileNotFoundException("Unable to find Classpath Resource: " + resourceLocation);
-        }
-        return new LiveWarClassLoader(new URL[]{url});
+        this.warFileUri = warFileUrl.toURI();
+        this.warFile = new JarFile(new File(warFileUri));
     }
 
-    public LiveWarClassLoader(URL[] urls)
+    public void close() throws IOException
     {
-        super(urls);
+        warFile.close();
+    }
+
+    private void debug(String format, Object... args)
+    {
+        if (DEBUG)
+        {
+            System.err.printf('[' + ID + "] " + format + "%n",args);
+        }
+    }
+
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException
+    {
+        debug("findClass: %s",name);
+        String path = name.replace('.','/').concat(".class");
+        ZipEntry entry = findEntry(path);
+        if (entry != null)
+        {
+            try
+            {
+                return loadClass(name,entry);
+            }
+            catch (IOException e)
+            {
+                throw new ClassNotFoundException(name,e);
+            }
+        }
+        else
+        {
+            throw new ClassNotFoundException(name);
+        }
+    }
+
+    private ZipEntry findEntry(String name)
+    {
+        StringBuilder path = new StringBuilder();
+        path.append(CLASSES_BASE);
+        if (name.charAt(0) == '/')
+        {
+            path.append(name.substring(1));
+        }
+        else
+        {
+            path.append(name);
+        }
+        ZipEntry entry = warFile.getEntry(path.toString());
+        debug("findEntry(%s) %s => %s",name,path,entry);
+        return entry;
+    }
+
+    @Override
+    protected URL findResource(String name)
+    {
+        debug("findResource: %s",name);
+        ZipEntry entry = findEntry(name);
+        if (entry != null)
+        {
+            try
+            {
+                return URI.create("jar:" + this.warFileUri.toASCIIString() + "!/" + entry.getName()).toURL();
+            }
+            catch (MalformedURLException e)
+            {
+                e.printStackTrace(System.err);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public Class<?> xloadClass(String name) throws ClassNotFoundException
+    {
+        try
+        {
+            return findClass(name);
+        }
+        catch (ClassNotFoundException e)
+        {
+            return getParent().loadClass(name);
+        }
+    }
+
+    private Class<?> loadClass(String name, ZipEntry entry) throws IOException
+    {
+        try (InputStream in = warFile.getInputStream(entry); ByteArrayOutputStream out = new ByteArrayOutputStream())
+        {
+            int len = 0;
+            int bufferSize = 4096;
+            byte[] buffer = new byte[bufferSize];
+            while (true)
+            {
+                len = in.read(buffer,0,bufferSize);
+                if (len < 0)
+                    break;
+                out.write(buffer,0,len);
+            }
+            byte[] classBytes = out.toByteArray();
+            return defineClass(name,classBytes,0,classBytes.length);
+        }
+    }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%s[%s]",this.getClass().getName(),this.warFileUri);
     }
 }
