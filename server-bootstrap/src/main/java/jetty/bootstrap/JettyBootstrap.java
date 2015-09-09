@@ -34,10 +34,6 @@ public class JettyBootstrap
             {
                 throw new IOException("JettyBootstrap not discoverable");
             }
-            if (!warLocation.getPath().endsWith(".war"))
-            {
-                throw new IOException("JettyBootstrap not in war file: " + warLocation.toExternalForm());
-            }
 
             LiveWarClassLoader clWar = new LiveWarClassLoader(warLocation);
             System.err.println("Using ClassLoader: " + clWar);

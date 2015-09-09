@@ -2,8 +2,9 @@ package demo.jetty;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,20 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/time/")
 public class TimeServlet extends HttpServlet
 {
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        System.err.println("INIT: " + TimeServlet.class.getName());
-    }
+    private static final TimeZone TZ = TimeZone.getDefault();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         Locale locale = req.getLocale();
-        Date date = new Date();
-        String dateStr = DateFormat.getDateInstance(DateFormat.DEFAULT,locale).format(date);
-        String timeStr = DateFormat.getTimeInstance(DateFormat.DEFAULT,locale).format(date);
-        resp.getWriter().println(dateStr + ' ' + timeStr);
+        Calendar cal = Calendar.getInstance(TZ,locale);
+        String dateStr = DateFormat.getDateInstance(DateFormat.DEFAULT,locale).format(cal.getTime());
+        String timeStr = DateFormat.getTimeInstance(DateFormat.DEFAULT,locale).format(cal.getTime());
+        String tzStr = TZ.getDisplayName(false,TimeZone.SHORT,locale);
+        resp.getWriter().println(String.format("%s %s %s",dateStr,timeStr,tzStr));
     }
 }

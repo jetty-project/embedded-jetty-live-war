@@ -23,9 +23,9 @@ public class ServerMain
         context.setContextPath("/");
         context.setWar(warFile.getAbsolutePath());
         
-        context.setAttribute(
-                "org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
-                ".*/.*\\.war$");
+//        context.setAttribute(
+//                "org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
+//                ".*/.*\\.war$");
         
         server.setHandler(context);
         

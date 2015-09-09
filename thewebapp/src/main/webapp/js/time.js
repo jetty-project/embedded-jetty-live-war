@@ -56,7 +56,7 @@ function initWebSocket()
         
         _onmessage : function(m) {
             if(m.data) {
-                $('#timeWebSocket').text(m);
+                $('#timeWebSocket').text(m.data);
             }
         },
         

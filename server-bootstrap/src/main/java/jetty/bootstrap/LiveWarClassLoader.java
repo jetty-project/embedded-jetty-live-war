@@ -27,6 +27,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
@@ -117,16 +121,27 @@ public class LiveWarClassLoader extends ClassLoader implements Closeable
         return null;
     }
 
-    public Class<?> xloadClass(String name) throws ClassNotFoundException
+    @Override
+    protected Enumeration<URL> findResources(String name) throws IOException
     {
-        try
+        debug("findResources: %s",name);
+        List<URL> urls = new ArrayList<>();
+        URL self = findResource(name);
+        if (self != null)
         {
-            return findClass(name);
+            urls.add(self);
         }
-        catch (ClassNotFoundException e)
+
+        if (getParent() != null)
         {
-            return getParent().loadClass(name);
+            Enumeration<URL> parent = getParent().getResources(name);
+            while (parent.hasMoreElements())
+            {
+                urls.add(parent.nextElement());
+            }
         }
+
+        return Collections.enumeration(urls);
     }
 
     private Class<?> loadClass(String name, ZipEntry entry) throws IOException
