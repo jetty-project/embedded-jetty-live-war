@@ -1,16 +1,22 @@
-.element {
-  height: 100px;
+body {
+  font-family: sans-serif;
+}
+
+.avatar {
+  float: left;	
+}
+
+.time {
+  height: 50px;
   width: 400px;
   background-color: red;
-  animation: 
-    pulse 3s ease infinite alternate, 
-    nudge 5s linear infinite alternate;
-  border-radius: 50px;
+  border-radius: 25px;
   text-align: center;
   vertical-align: middle;
-  font-family: sans-serif;
   font-size: 25px;
-  line-height: 100px;
+  line-height: 50px;
+  animation: 
+    pulse 3s ease infinite alternate;
 }
 
 @keyframes pulse {
@@ -22,28 +28,4 @@
   }
 }
 
-@keyframes nudge {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  
-  50% {
-    transform: translate(150px, 0);
-  }
-  
-  80% {
-    transform: translate(-150px, 0);
-  }
-}
-
-
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 

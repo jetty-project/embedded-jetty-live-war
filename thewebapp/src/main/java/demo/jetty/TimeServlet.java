@@ -12,14 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/time")
+@WebServlet("/time/")
 public class TimeServlet extends HttpServlet
 {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    public void init() throws ServletException
+    {
+        super.init();
+        System.err.println("INIT: " + TimeServlet.class.getName());
+    }
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         Locale locale = req.getLocale();
-        resp.getWriter().println(DateFormat.getDateInstance(DateFormat.LONG,locale).format(new Date()));
-        super.doGet(req,resp);
+        Date date = new Date();
+        String dateStr = DateFormat.getDateInstance(DateFormat.DEFAULT,locale).format(date);
+        String timeStr = DateFormat.getTimeInstance(DateFormat.DEFAULT,locale).format(date);
+        resp.getWriter().println(dateStr + ' ' + timeStr);
     }
 }
