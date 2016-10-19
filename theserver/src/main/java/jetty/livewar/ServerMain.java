@@ -72,7 +72,7 @@ public class ServerMain
         if (warLocation != null)
         {
             Path warPath = new File(warLocation).toPath().toRealPath();
-            if (Files.exists(warPath) && Files.isDirectory(warPath))
+            if (Files.exists(warPath) && Files.isRegularFile(warPath))
             {
                 this.basePath = warPath;
                 return OperationalMode.PROD;
