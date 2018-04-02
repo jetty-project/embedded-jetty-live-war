@@ -7,6 +7,7 @@
   <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.4.9.v20180320</jetty.version>
   </properties>
   <modules>
     <module>thewebapp</module>
@@ -43,7 +44,7 @@
                 <requireJavaVersion>
                   <version>[1.8,)</version>
                   <message>[ERROR] OLD JDK [${java.version}] in use.
-                    Jetty ${jetty-version} requires JDK 1.8 or newer</message>
+                    Jetty ${jetty.version} requires JDK 1.8 or newer</message>
                 </requireJavaVersion>
               </rules>
             </configuration>

@@ -7,7 +7,6 @@
     <version>1-SNAPSHOT</version>
   </parent>
   <artifactId>livewar-theserver</artifactId>
-  <version>9.3.5.v20151012</version>
   <packaging>jar</packaging>
   <description>Create's a UberJar consisting of all classes needed to start Jetty</description>
   <properties>
@@ -22,17 +21,17 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-      <version>${project.version}</version>
+      <version>${jetty.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-annotations</artifactId>
-      <version>${project.version}</version>
+      <version>${jetty.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty.websocket</groupId>
       <artifactId>javax-websocket-server-impl</artifactId>
-      <version>${project.version}</version>
+      <version>${jetty.version}</version>
     </dependency>
   </dependencies>
   <build>

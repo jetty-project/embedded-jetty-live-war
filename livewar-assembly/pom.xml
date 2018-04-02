@@ -11,7 +11,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <serverManifestDirectory>${project.build.directory}/servermanifest</serverManifestDirectory>
-    <jetty.version>9.3.2.v20150730</jetty.version>
   </properties>
   <dependencies>
     <dependency>
@@ -23,12 +22,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>livewar-server-bootstrap</artifactId>
-      <version>${jetty.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>livewar-theserver</artifactId>
-      <version>${jetty.version}</version>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -55,7 +54,7 @@
                 <artifactItem>
                   <groupId>${project.groupId}</groupId>
                   <artifactId>livewar-server-bootstrap</artifactId>
-                  <version>${jetty.version}</version>
+                  <version>${project.version}</version>
                   <outputDirectory>${serverManifestDirectory}</outputDirectory>
                   <includes>META-INF/MANIFEST.MF</includes>
                 </artifactItem>

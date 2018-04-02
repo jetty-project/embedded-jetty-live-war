@@ -7,7 +7,6 @@
     <version>1-SNAPSHOT</version>
   </parent>
   <artifactId>livewar-server-bootstrap</artifactId>
-  <version>9.3.2.v20150730</version>
   <packaging>jar</packaging>
   <description>Simple Bootstrap for the Server UberJar (when packaged in a WAR)</description>
   <properties>
