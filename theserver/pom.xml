@@ -8,7 +8,7 @@
   </parent>
   <artifactId>livewar-theserver</artifactId>
   <packaging>jar</packaging>
-  <description>Create's a UberJar consisting of all classes needed to start Jetty</description>
+  <description>Creates a UberJar consisting of all classes needed to start Jetty</description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -16,7 +16,7 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
+      <version>${servlet.api.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -35,17 +35,10 @@
     </dependency>
   </dependencies>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.2.4</version>
         <executions>
           <execution>
             <id>rebuild-war</id>

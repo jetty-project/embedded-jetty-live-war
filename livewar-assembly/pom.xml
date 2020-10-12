@@ -31,17 +31,10 @@
     </dependency>
   </dependencies>
   <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.2</version>
         <executions>
           <execution>
             <id>use-server-manifest</id>
@@ -66,7 +59,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.3.0</version>
         <executions>
           <execution>
             <id>build-livewar</id>
