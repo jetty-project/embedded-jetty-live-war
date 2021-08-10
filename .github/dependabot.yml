@@ -30,7 +30,9 @@ updates:
         versions: [ "<=10.0.0", ">=11.0.0" ]
       - dependency-name: "org.eclipse.jetty:*"
         versions: [ "<=10.0.0", ">=11.0.0" ]
-      - dependency-name: "javax.servlet:*"
+      - dependency-name: "jakarta.websocket:*"
+        versions: [ ">=2.0.0" ]
+      - dependency-name: "jakarta.servlet:*"
         versions: [ ">=5.0.0" ]
 
   - package-ecosystem: "maven"
@@ -44,5 +46,7 @@ updates:
         versions: [ ">=12.0.0" ]
       - dependency-name: "org.eclipse.jetty:*"
         versions: [ ">=12.0.0" ]
+      - dependency-name: "jakarta.websocket:*"
+        versions: [ ">=3.0.0" ]
       - dependency-name: "jakarta.servlet:*"
         versions: [ ">=6.0.0" ]
