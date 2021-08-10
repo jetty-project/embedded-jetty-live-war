@@ -39,17 +39,13 @@ Example:
 $ mvn clean install
 ...(snip lots of build output)...
 $ java -jar livewar-assembly/target/livewar-example.war 
-sing ClassLoader: jetty.bootstrap.LiveWarClassLoader[file:/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war]
-2021-08-10 15:38:48.696:INFO::main: Logging initialized @190ms to org.eclipse.jetty.util.log.StdErrLog
-2021-08-10 15:38:48.759:INFO:oejs.Server:main: jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 11.0.12+7
-2021-08-10 15:38:49.154:INFO:oeja.AnnotationConfiguration:main: Scanning elapsed time=15ms
-2021-08-10 15:38:49.162:INFO:oejw.StandardDescriptorProcessor:main: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
-2021-08-10 15:38:49.211:INFO:oejs.session:main: DefaultSessionIdManager workerName=node0
-2021-08-10 15:38:49.211:INFO:oejs.session:main: No SessionScavenger set, using defaults
-2021-08-10 15:38:49.212:INFO:oejs.session:main: node0 Scavenging every 660000ms
-2021-08-10 15:38:49.242:INFO:oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@3bf7ca37{/,file:///tmp/jetty-0_0_0_0-8080-livewar-example_war-_-any-1092283572399441055/webapp/,AVAILABLE}{/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war}
-2021-08-10 15:38:49.258:INFO:oejs.AbstractConnector:main: Started ServerConnector@52f759d7{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
-2021-08-10 15:38:49.259:INFO:oejs.Server:main: Started @754ms
+Using ClassLoader: jetty.bootstrap.LiveWarClassLoader[file:/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war]
+2021-08-10 15:41:23.499:INFO :oejs.Server:main: jetty-11.0.6; built: 2021-06-29T16:16:33.537Z; git: 69469432898becda3aed32a32d4b0adbb7b6daee; jvm 11.0.12+7
+2021-08-10 15:41:23.933:INFO :oejw.StandardDescriptorProcessor:main: NO JSP Support for /, did not find org.eclipse.jetty.jsp.JettyJspServlet
+2021-08-10 15:41:23.996:INFO :oejss.DefaultSessionIdManager:main: Session workerName=node0
+2021-08-10 15:41:24.018:INFO :oejsh.ContextHandler:main: Started o.e.j.w.WebAppContext@49dc7102{/,file:///tmp/jetty-0_0_0_0-8080-livewar-example_war-_-any-1525063685359350259/webapp/,AVAILABLE}{/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war}
+2021-08-10 15:41:24.029:INFO :oejs.AbstractConnector:main: Started ServerConnector@289d1c02{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2021-08-10 15:41:24.041:INFO :oejs.Server:main: Started Server@275710fc{STARTING}[11.0.6,sto=0] @813ms
 ```
 
 
