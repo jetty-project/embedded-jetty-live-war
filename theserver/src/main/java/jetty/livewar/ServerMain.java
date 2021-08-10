@@ -69,6 +69,7 @@ public class ServerMain
                 // Add webapp compiled classes & resources (copied into place from src/main/resources)
                 Path classesPath = basePath.resolve("target/thewebapp/WEB-INF/classes");
                 context.setExtraClasspath(classesPath.toAbsolutePath().toString());
+                server.setDumpAfterStart(true);
                 break;
             default:
                 throw new FileNotFoundException("Unable to configure WebAppContext base resource undefined");
@@ -77,23 +78,24 @@ public class ServerMain
         server.setHandler(context);
 
         server.start();
-        server.dumpStdErr();
         server.join();
     }
 
     private OperationalMode getOperationalMode() throws IOException
     {
+        // Property set by jetty.bootstrap.JettyBootstrap
         String warLocation = System.getProperty("org.eclipse.jetty.livewar.LOCATION");
         if (warLocation != null)
         {
             Path warPath = new File(warLocation).toPath().toRealPath();
-            if (Files.exists(warPath) && Files.isDirectory(warPath))
+            if (Files.exists(warPath) && Files.isRegularFile(warPath))
             {
                 this.basePath = warPath;
                 return OperationalMode.PROD;
             }
         }
 
+        // We are in development mode, likely building and testing from an IDE.
         Path devPath = new File("../thewebapp").toPath().toRealPath();
         if (Files.exists(devPath) && Files.isDirectory(devPath))
         {
