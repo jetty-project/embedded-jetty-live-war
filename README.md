@@ -39,7 +39,7 @@ Example:
 $ mvn clean install
 ...(snip lots of build output)...
 $ java -jar livewar-assembly/target/livewar-example.war 
-sing ClassLoader: jetty.bootstrap.LiveWarClassLoader[file:/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war]
+Using ClassLoader: jetty.bootstrap.LiveWarClassLoader[file:/home/joakim/code/jetty/github-jetty.project/embedded-jetty-live-war/livewar-assembly/target/livewar-example.war]
 2021-08-10 15:38:48.696:INFO::main: Logging initialized @190ms to org.eclipse.jetty.util.log.StdErrLog
 2021-08-10 15:38:48.759:INFO:oejs.Server:main: jetty-9.4.43.v20210629; built: 2021-06-30T11:07:22.254Z; git: 526006ecfa3af7f1a27ef3a288e2bef7ea9dd7e8; jvm 11.0.12+7
 2021-08-10 15:38:49.154:INFO:oeja.AnnotationConfiguration:main: Scanning elapsed time=15ms
