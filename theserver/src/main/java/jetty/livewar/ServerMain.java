@@ -54,7 +54,13 @@ public class ServerMain
     {
         Server server = new Server(8080);
 
-        WebAppContext context = new WebAppContext();
+        WebAppContext context = new WebAppContext() {
+            @Override
+            public boolean isServerResource(String name, URL url)
+            {
+                return super.isServerResource(name, url) || url.getFile().contains("/WEB-INF/jetty-server/");
+            }
+        };
         context.setContextPath("/");
 
         switch (getOperationalMode())
